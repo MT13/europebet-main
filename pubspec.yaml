@@ -26,6 +26,7 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   intl: ^0.16.1
+  page_indicator: ^0.3.0
 
 
   # The following adds the Cupertino Icons font to your application.

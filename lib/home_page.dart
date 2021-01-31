@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/painting.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:page_indicator/page_indicator.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key key, this.title}) : super(key: key);
@@ -83,18 +85,106 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
+//TODO: alignment problem - write custom pageView?
+  Widget _buildTopSlider(){
+    List pageList = new List();
+    for (var i = 0; i < 10; i++) {
+      pageList.add(
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 8, vertical: 16),
+          child: Container(
+            decoration: BoxDecoration(
+                color: Colors.yellow,
+                borderRadius: BorderRadius.all(Radius.circular(20))),
+          ),
+        ),
+      );
+    }
 
-  Widget _homePageView() {
-    return Container(child: Placeholder());
-  }
-
-  Widget _dummyTabView(){
-    return Container(
-      child: Center(
-        child: Text("Not implemented yet =)"),
-      )
+    PageController pageController = PageController(
+      viewportFraction: 0.7,
     );
+
+    final pageView = PageView.builder(
+        controller: pageController,
+        itemCount: 10,
+        itemBuilder: (BuildContext context, int index) {
+          return pageList[index];
+        });
+
+    var indicator = PageIndicatorContainer(
+      child: pageView,
+      padding: EdgeInsets.only(top: 16),
+      align: IndicatorAlign.bottom,
+      indicatorColor: Theme.of(context).colorScheme.onPrimary,
+      indicatorSelectorColor: Theme.of(context).colorScheme.secondary,
+      length: 10,
+      indicatorSpace: 8,
+      shape: IndicatorShape.roundRectangleShape(
+        size: Size(16, 4),
+        cornerSize: Size.fromRadius(20),
+      ),
+    );
+
+    return indicator;
   }
+
+  Widget _buildSlider(Color color){
+    List pageList = new List();
+    for (var i = 0; i < 10; i++) {
+      pageList.add(
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 8, vertical: 16),
+          child: Container(
+            decoration: BoxDecoration(
+                color: color,
+                borderRadius: BorderRadius.all(Radius.circular(20))),
+          ),
+        ),
+      );
+    }
+
+    PageController pageController = PageController(
+      viewportFraction: 0.4,
+    );
+
+    final pageView = PageView.builder(
+        controller: pageController,
+        itemCount: 10,
+        itemBuilder: (BuildContext context, int index) {
+          return pageList[index];
+        });
+    
+    return Padding(padding: _padding, child: pageView,);
+  }
+  Widget _homePageView() {
+    final topSlider = _buildTopSlider();
+    final gamesSlider = _buildSlider(Colors.blue);
+    final trendingSlider = _buildSlider(Colors.lightGreenAccent);
+    final liveSlider = _buildSlider(Colors.purpleAccent);
+    final jackpotsSlider = _buildSlider(Colors.deepOrangeAccent);
+
+    Widget column = Column(
+
+      children: <Widget>[
+        topSlider,
+        gamesSlider,
+        trendingSlider,
+        liveSlider,
+        jackpotsSlider,
+      ],
+    );
+
+    return topSlider;
+  }
+
+  Widget _dummyTabView() {
+    return Container(
+        child: Center(
+      child: Text("Not implemented yet =)"),
+    ));
+  }
+
   DefaultTabController _createNavBar() {
     return DefaultTabController(
       length: 11,
@@ -120,7 +210,7 @@ class _HomePageState extends State<HomePage> {
               isScrollable: true,
             ),
             Container(
-              color: Theme.of(context).colorScheme.background,
+                color: Theme.of(context).colorScheme.background,
                 height: 300.0,
                 child: TabBarView(
                   children: [
