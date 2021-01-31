@@ -3,5 +3,38 @@
   "@signIn": {},
 
   "register": "Register",
-  "@register": {}
+  "@register": {},
+
+  "home": "Home",
+  "@home": {},
+
+  "sport": "Sport",
+  "@sport":{},
+
+  "live": "Live",
+  "@live": {},
+
+  "slots": "Slots",
+  "@slots": {},
+
+  "liveCasino": "Live Casino",
+  "@liveCasino": {},
+
+  "miniGames": "Mini Games",
+  "@miniGames": {},
+
+  "poker": "Poker",
+  "@poker": {},
+
+  "tableGames": "Table Games",
+  "@tableGames": {},
+
+  "virtualGames": "Virtual Games",
+  "@virtualGames": {},
+
+  "tvGames": "TV Games",
+  "@tvGames": {},
+
+  "promotions": "Promotions",
+  "@promotions": {}
 }

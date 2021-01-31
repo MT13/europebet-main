@@ -84,8 +84,63 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Container _createNavBar() {
+  Widget _homePageView() {
     return Container(child: Placeholder());
+  }
+
+  Widget _dummyTabView(){
+    return Container(
+      child: Center(
+        child: Text("Not implemented yet =)"),
+      )
+    );
+  }
+  DefaultTabController _createNavBar() {
+    return DefaultTabController(
+      length: 11,
+      initialIndex: 0,
+      child: Container(
+        color: Theme.of(context).colorScheme.surface,
+        child: Column(
+          children: [
+            TabBar(
+              tabs: [
+                Tab(text: AppLocalizations.of(context).home),
+                Tab(text: AppLocalizations.of(context).sport),
+                Tab(text: AppLocalizations.of(context).live),
+                Tab(text: AppLocalizations.of(context).slots),
+                Tab(text: AppLocalizations.of(context).liveCasino),
+                Tab(text: AppLocalizations.of(context).miniGames),
+                Tab(text: AppLocalizations.of(context).poker),
+                Tab(text: AppLocalizations.of(context).tableGames),
+                Tab(text: AppLocalizations.of(context).virtualGames),
+                Tab(text: AppLocalizations.of(context).tvGames),
+                Tab(text: AppLocalizations.of(context).promotions),
+              ],
+              isScrollable: true,
+            ),
+            Container(
+              color: Theme.of(context).colorScheme.background,
+                height: 300.0,
+                child: TabBarView(
+                  children: [
+                    _homePageView(),
+                    _dummyTabView(),
+                    _dummyTabView(),
+                    _dummyTabView(),
+                    _dummyTabView(),
+                    _dummyTabView(),
+                    _dummyTabView(),
+                    _dummyTabView(),
+                    _dummyTabView(),
+                    _dummyTabView(),
+                    _dummyTabView(),
+                  ],
+                ))
+          ],
+        ),
+      ),
+    );
   }
 
   Container _createMainSwipe() {
@@ -103,17 +158,12 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
       body: SingleChildScrollView(
         child: Container(
           color: Theme.of(context).colorScheme.background,
           child: Column(children: <Widget>[
             _createTopBar(),
             _createNavBar(),
-            _createMainSwipe(),
-            _createSwipeList(),
             _createBottomContainer(),
           ]),
         ),
