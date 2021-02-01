@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:page_indicator/page_indicator.dart';
+import 'package:custom_page_view/custom_page_view.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key key, this.title}) : super(key: key);
@@ -85,19 +86,19 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
-//TODO: alignment problem - write custom pageView?
-  Widget _buildTopSlider(){
+
+  Widget _buildTopSlider() {
     List pageList = new List();
     for (var i = 0; i < 10; i++) {
       pageList.add(
         Padding(
           padding: EdgeInsets.symmetric(horizontal: 8, vertical: 16),
-          child: Container(
-            decoration: BoxDecoration(
-                color: Colors.yellow,
-                borderRadius: BorderRadius.all(Radius.circular(20))),
+            child: Container(
+              decoration: BoxDecoration(
+                  color: Colors.yellow,
+                  borderRadius: BorderRadius.all(Radius.circular(20))),
+            ),
           ),
-        ),
       );
     }
 
@@ -105,7 +106,9 @@ class _HomePageState extends State<HomePage> {
       viewportFraction: 0.7,
     );
 
-    final pageView = PageView.builder(
+    final pageView = CustomPageView.builder(
+        viewportDirection: false,
+        allowImplicitScrolling: true,
         controller: pageController,
         itemCount: 10,
         itemBuilder: (BuildContext context, int index) {
@@ -129,7 +132,7 @@ class _HomePageState extends State<HomePage> {
     return indicator;
   }
 
-  Widget _buildSlider(Color color){
+  Widget _buildSlider(Color color) {
     List pageList = new List();
     for (var i = 0; i < 10; i++) {
       pageList.add(
@@ -154,9 +157,13 @@ class _HomePageState extends State<HomePage> {
         itemBuilder: (BuildContext context, int index) {
           return pageList[index];
         });
-    
-    return Padding(padding: _padding, child: pageView,);
+
+    return Padding(
+      padding: _padding,
+      child: pageView,
+    );
   }
+
   Widget _homePageView() {
     final topSlider = _buildTopSlider();
     final gamesSlider = _buildSlider(Colors.blue);
@@ -164,8 +171,7 @@ class _HomePageState extends State<HomePage> {
     final liveSlider = _buildSlider(Colors.purpleAccent);
     final jackpotsSlider = _buildSlider(Colors.deepOrangeAccent);
 
-    Widget column = Column(
-
+    Column column = Column(
       children: <Widget>[
         topSlider,
         gamesSlider,
@@ -261,3 +267,4 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
+
