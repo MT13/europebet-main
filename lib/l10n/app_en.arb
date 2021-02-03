@@ -36,5 +36,66 @@
   "@tvGames": {},
 
   "promotions": "Promotions",
-  "@promotions": {}
+  "@promotions": {},
+
+   "liveChat": "Live Chat",
+   "@liveChat": {},
+
+  "phone": "*0909",
+  "@phone": {},
+
+  "products": "Products",
+  "@products": {},
+
+  "europebet": "Europebet",
+  "@europebet": {},
+
+  "help": "Help",
+  "@help": {},
+
+  "followUs": "Follow Us",
+  "@followUs": {},
+
+  "aboutUs": "About Us",
+  "@aboutUs": {},
+
+  "betssonGroup": "Betsson Group",
+  "@betssonGroup": {},
+
+  "termsAndConditions": "Terms and Conditions",
+  "@termsAndConditions": {},
+
+  "privacyStatement": "Privacy Statement",
+  "@privacyStatement": {},
+
+  "responsibleGaming": "Responsible Gaming",
+  "@responsibleGaming": {},
+
+  "eighteenPlus": "18+",
+  "@eighteenPlus": {},
+
+  "contactUs": "Contact Us",
+  "@contactUs": {},
+
+  "faq": "FAQ",
+  "@faq": {},
+
+  "cashDesk": "Cash Desk",
+  "@cashDesk": {},
+
+  "facebook": "Facebook",
+  "@facebook": {},
+
+  "youtube": "Youtube",
+  "@youtube": {},
+
+  "games": "Games",
+  "@games": {},
+
+  "trending": "Trending",
+  "@trending": {},
+
+  "jackpots": "Jackpots",
+  "@jackpots": {}
+
 }
