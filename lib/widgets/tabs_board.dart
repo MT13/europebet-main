@@ -24,22 +24,25 @@ class _TabsBoardState extends State<TabsBoard> {
       padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children:<Widget>[
+        children: <Widget>[
           Row(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            leftIcon,
-            Padding(
-              padding: EdgeInsets.only(left: 16),
-              child: Text(text),
-            ),]),
-            if (rightIcon != null)
-            Row(children: [
-                 rightIcon,
-            ],),
-          ],
-        ),
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                leftIcon,
+                Padding(
+                  padding: EdgeInsets.only(left: 16),
+                  child: Text(text),
+                ),
+              ]),
+          if (rightIcon != null)
+            Row(
+              children: [
+                rightIcon,
+              ],
+            ),
+        ],
+      ),
     );
   }
 
@@ -102,17 +105,50 @@ class _TabsBoardState extends State<TabsBoard> {
   @override
   Widget build(BuildContext context) {
     List<Widget> tabs = [
-      Tab(text: AppLocalizations.of(context).home, icon: Icon(Icons.home),),
-      Tab(text: AppLocalizations.of(context).sport, icon: Icon(Icons.sports_soccer),),
-      Tab(text: AppLocalizations.of(context).live, icon: Icon(Icons.live_tv),),
-      Tab(text: AppLocalizations.of(context).slots,icon: Icon(Icons.filter_7),),
-      Tab(text: AppLocalizations.of(context).liveCasino,icon: Icon(Icons.add),),
-      Tab(text: AppLocalizations.of(context).miniGames,icon: Icon(Icons.sports_esports_outlined),),
-      Tab(text: AppLocalizations.of(context).poker,icon: Icon(Icons.style_outlined),),
-      Tab(text: AppLocalizations.of(context).tableGames,icon: Icon(Icons.casino),),
-      Tab(text: AppLocalizations.of(context).virtualGames,icon: Icon(Icons.movie_creation_outlined),),
-      Tab(text: AppLocalizations.of(context).tvGames,icon: Icon(Icons.tv),),
-      Tab(text: AppLocalizations.of(context).promotions,icon: Icon(Icons.campaign_outlined),),
+      Tab(
+        text: AppLocalizations.of(context).home,
+        icon: Icon(Icons.home),
+      ),
+      Tab(
+        text: AppLocalizations.of(context).sport,
+        icon: Icon(Icons.sports_soccer),
+      ),
+      Tab(
+        text: AppLocalizations.of(context).live,
+        icon: Icon(Icons.live_tv),
+      ),
+      Tab(
+        text: AppLocalizations.of(context).slots,
+        icon: Icon(Icons.filter_7),
+      ),
+      Tab(
+        text: AppLocalizations.of(context).liveCasino,
+        icon: Icon(Icons.add),
+      ),
+      Tab(
+        text: AppLocalizations.of(context).miniGames,
+        icon: Icon(Icons.sports_esports_outlined),
+      ),
+      Tab(
+        text: AppLocalizations.of(context).poker,
+        icon: Icon(Icons.style_outlined),
+      ),
+      Tab(
+        text: AppLocalizations.of(context).tableGames,
+        icon: Icon(Icons.casino),
+      ),
+      Tab(
+        text: AppLocalizations.of(context).virtualGames,
+        icon: Icon(Icons.movie_creation_outlined),
+      ),
+      Tab(
+        text: AppLocalizations.of(context).tvGames,
+        icon: Icon(Icons.tv),
+      ),
+      Tab(
+        text: AppLocalizations.of(context).promotions,
+        icon: Icon(Icons.campaign_outlined),
+      ),
     ];
 
     List<Widget> views = new List<Widget>();
@@ -135,6 +171,8 @@ class _TabsBoardState extends State<TabsBoard> {
               tabs: tabs,
               isScrollable: true,
               indicatorColor: Colors.transparent,
+              unselectedLabelColor: Theme.of(context).colorScheme.onSurface,
+              labelColor: Theme.of(context).colorScheme.secondary,
             ),
             Container(
               padding: EdgeInsets.only(bottom: 16),

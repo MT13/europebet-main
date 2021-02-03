@@ -28,7 +28,7 @@ class EuropeBetMain extends StatelessWidget {
           secondary: Color(0xFFEF602A),
           secondaryVariant: Color(0xFFF05A22),
           surface: Color(0xFF25292B),
-          onSurface: Colors.white,
+          onSurface: Color(0xFFBBBBBB),
         ),
 
         fontFamily: 'Helvetica',
