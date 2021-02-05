@@ -1,4 +1,4 @@
-თუ პროექტი არ დაიბილდა პირველივე ჯერზე, _dart_tools/flutter_gen-ში შექმენით ფაილი pubspec.yaml და შიგნით ჩაწერეთ 
+თუ პროექტი არ დაიბილდა პირველივე ჯერზე, .dart_tools/flutter_gen-ში შექმენით ფაილი pubspec.yaml და შიგნით ჩაწერეთ 
 > dependencies: 
 
 
