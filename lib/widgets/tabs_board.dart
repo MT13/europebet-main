@@ -4,6 +4,8 @@ import 'package:eurpebet_main/api.dart';
 import 'package:eurpebet_main/widgets/swiper.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:eurpebet_main/serializables/game_unit.dart';
+import 'dart:async';
 
 class TabsBoard extends StatefulWidget {
   TabsBoard({
@@ -15,9 +17,42 @@ class TabsBoard extends StatefulWidget {
 }
 
 class _TabsBoardState extends State<TabsBoard> {
+
   double _topSwiperHeight = 250;
   double _commonSwiperHeight = 200;
+
   double _padding = 16;
+  List<GameUnit> _gamesData = List<GameUnit>();
+  List<GameUnit>_trendingData = List<GameUnit>();
+  List<GameUnit> _liveCasinoData = List<GameUnit>();
+  List<GameUnit> _jackpotsData = List<GameUnit>();
+
+  Future<void> _retrieveData() async {
+    final api = Api();
+    List<GameUnit> _gamesData = await api.getGamesData('games');
+    List<GameUnit> _trendingData = await api.getGamesData('trending');
+    List<GameUnit> _liveCasinoData =
+        await api.getGamesData('live_casino');
+    List<GameUnit> _jackpotsData = await api.getGamesData('jackpots');
+
+    setState(() {
+      this._gamesData = _gamesData;
+      this._trendingData = _trendingData;
+      this._liveCasinoData = _liveCasinoData;
+      this._jackpotsData = _jackpotsData;
+    });
+  }
+
+  @override
+  Future<void> didChangeDependencies() async {
+    super.didChangeDependencies();
+    if (_gamesData.isEmpty ||
+        _trendingData.isEmpty ||
+        _liveCasinoData.isEmpty ||
+        _jackpotsData.isEmpty) {
+      await _retrieveData();
+    }
+  }
 
   Widget _swiperTopRow(Widget leftIcon, String text, [Widget rightIcon]) {
     return Padding(
@@ -46,7 +81,7 @@ class _TabsBoardState extends State<TabsBoard> {
     );
   }
 
-  Widget _commonSwiper(String data) {
+  Widget _commonSwiper(List<GameUnit> data) {
     return SizedBox(
       height: _commonSwiperHeight,
       child: Swiper(
@@ -59,10 +94,6 @@ class _TabsBoardState extends State<TabsBoard> {
   }
 
   Widget _homePageView() {
-    List<String> datas = new List<String>();
-    for (var i = 0; i < 10; i++) {
-      datas.add('$i');
-    }
 
     Column column = Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
       Padding(
@@ -73,24 +104,24 @@ class _TabsBoardState extends State<TabsBoard> {
             hasIndicator: true,
             viewportFraction: 0.7,
             numOfElements: 11,
-            data: null,
+            data: [],
           ),
         ),
       ),
       _swiperTopRow(SvgPicture.asset('assets/icons/rocket.svg'),
           AppLocalizations.of(context).games),
-      _commonSwiper(null),
+      _commonSwiper(_gamesData),
       _swiperTopRow(SvgPicture.asset('assets/icons/thumbup.svg'),
           AppLocalizations.of(context).trending),
-      _commonSwiper(null),
+      _commonSwiper(_trendingData),
       _swiperTopRow(
           SvgPicture.asset('assets/icons/cross.svg'),
           AppLocalizations.of(context).liveCasino,
           SvgPicture.asset('assets/icons/return.svg')),
-      _commonSwiper(null),
+      _commonSwiper(_liveCasinoData),
       _swiperTopRow(SvgPicture.asset('assets/icons/diamond.svg'),
           AppLocalizations.of(context).jackpots),
-      _commonSwiper(null),
+      _commonSwiper(_jackpotsData),
     ]);
     return column;
   }
@@ -104,6 +135,19 @@ class _TabsBoardState extends State<TabsBoard> {
 
   @override
   Widget build(BuildContext context) {
+    assert(debugCheckHasMediaQuery(context));
+
+    if (MediaQuery.of(context).orientation == Orientation.landscape){
+      setState(() {
+        _commonSwiperHeight = 350;
+      });
+    }
+    if (MediaQuery.of(context).orientation == Orientation.portrait){
+      setState(() {
+        _commonSwiperHeight = 200;
+      });
+    }
+
     List<Widget> tabs = [
       Tab(
         text: AppLocalizations.of(context).home,
@@ -159,33 +203,38 @@ class _TabsBoardState extends State<TabsBoard> {
       views.add(_dummyTabView());
     }
 
-    return DefaultTabController(
-      length: tabs.length,
-      initialIndex: 0,
-      child: Container(
-        color: Theme.of(context).colorScheme.surface,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            TabBar(
-              tabs: tabs,
-              isScrollable: true,
-              indicatorColor: Colors.transparent,
-              unselectedLabelColor: Theme.of(context).colorScheme.onSurface,
-              labelColor: Theme.of(context).colorScheme.secondary,
-            ),
-            Container(
-              padding: EdgeInsets.only(bottom: 16),
-              color: Theme.of(context).colorScheme.background,
-              height:
-                  _topSwiperHeight + 13 * _padding + 4 * _commonSwiperHeight,
-              child: TabBarView(
-                children: views,
+    return OrientationBuilder(
+        builder: (context, orientation) {
+
+         return DefaultTabController(
+            length: tabs.length,
+            initialIndex: 0,
+            child: Container(
+              color: Theme.of(context).colorScheme.surface,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  TabBar(
+                    tabs: tabs,
+                    isScrollable: true,
+                    indicatorColor: Colors.transparent,
+                    unselectedLabelColor: Theme.of(context).colorScheme.onSurface,
+                    labelColor: Theme.of(context).colorScheme.secondary,
+                  ),
+                  Container(
+                    padding: EdgeInsets.only(bottom: 16),
+                    color: Theme.of(context).colorScheme.background,
+                    height:
+                    _topSwiperHeight + 13 * _padding + 4 * _commonSwiperHeight,
+                    child: TabBarView(
+                      children: views,
+                    ),
+                  ),
+                ],
               ),
             ),
-          ],
-        ),
-      ),
-    );
+         );}
+        );
+
   }
 }

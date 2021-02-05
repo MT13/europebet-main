@@ -15,9 +15,13 @@ class InfoBoard extends StatefulWidget {
 }
 
 class _InfoBoardState extends State<InfoBoard> {
+  final _snackBar = SnackBar(content: Text('Not implemented yet =)'));
+
   TextButton _buildContactButton(Widget icon, String text) {
     return TextButton(
-      onPressed: null,
+      onPressed: () {
+        Scaffold.of(context).showSnackBar(_snackBar);
+      },
       child:
           Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
         Padding(
@@ -30,6 +34,7 @@ class _InfoBoardState extends State<InfoBoard> {
             text,
             style: TextStyle(
               fontSize: 14,
+              color: Theme.of(context).colorScheme.onSurface
             ),
           ),
         ),
@@ -43,7 +48,9 @@ class _InfoBoardState extends State<InfoBoard> {
   Widget _languages() {
     return Center(
       child: TextButton(
-        onPressed: null,
+        onPressed: () {
+          Scaffold.of(context).showSnackBar(_snackBar);
+        },
         child: Row(
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -61,9 +68,10 @@ class _InfoBoardState extends State<InfoBoard> {
                 "English",
                 style: TextStyle(
                   fontSize: 14,
+                  color: Theme.of(context).colorScheme.onSurface,
                 ),
               ),
-              Icon(Icons.keyboard_arrow_down),
+              Icon(Icons.keyboard_arrow_down, color: Theme.of(context).colorScheme.onSurface,),
             ]),
         style: TextButton.styleFrom(
           backgroundColor: Colors.transparent,
